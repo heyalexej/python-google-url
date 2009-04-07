@@ -125,6 +125,11 @@ public:
   const std::string GetFilename(void) { return m_url.ExtractFileName(); }
   bool IsStandard(void) { return m_url.IsStandard(); }
 
+  const CUrlWrapper GetWithEmptyPath(void) { return CUrlWrapper(m_url.GetWithEmptyPath()); }
+  const CUrlWrapper GetOrigin(void) { return CUrlWrapper(m_url.GetOrigin()); }
+  bool HostIsIPAddress(void) { return m_url.HostIsIPAddress(); }
+  const std::string PathForRequest(void) { return m_url.PathForRequest(); }
+
   bool SchemeIs(const std::string& scheme) { return m_url.SchemeIs(scheme.c_str()); }
   bool DomainIs(const std::string& domain) { return m_url.DomainIs(domain.c_str(), domain.size()); }
 };
