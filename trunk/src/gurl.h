@@ -104,4 +104,8 @@ public:
   const std::string GetPath(void) { return m_url.path(); }
   const std::string GetQuery(void) { return m_url.query(); }
   const std::string GetRef(void) { return m_url.ref(); }
+
+  const std::string GetFilename(void) { return m_url.ExtractFileName(); }
+
+  bool DomainIs(const std::string& domain) { return m_url.DomainIs(domain.c_str(), domain.size()); }
 };

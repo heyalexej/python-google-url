@@ -32,11 +32,18 @@ class TestUrl(unittest.TestCase):
         self.assertFalse(url)
         self.assert_(url.empty())
         
-    def testResolve(self):
+    def testMethods(self):
         url = gurl.Url("http://www.google.com/index.htm")
         
-        self.assertEquals("http://www.google.com/ad.js", str(url.resolve("ad.js")))
-        self.assertEquals("http://www.google.com/ad.js", str(url.resolve(u"ad.js")))
+        self.assertEquals("http://www.google.com/ad.js", str(url.join("ad.js")))
+        self.assertEquals("http://www.google.com/ad.js", str(url.join(u"ad.js")))
+        
+        self.assert_(url.domainis("www.google.com"))
+        self.assert_(url.domainis("google.com"))
+        self.assert_(url.domainis("com"))
+        
+        self.assertFalse(url.domainis("WWW.google.com"))
+        self.assertFalse(url.domainis("www.test.com"))
         
     def testProperties(self):
         url = gurl.Url("http://user:pass@www.google.com:8080/index.htm?id=1234#tag")
