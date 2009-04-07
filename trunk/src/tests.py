@@ -69,6 +69,12 @@ class TestUrl(unittest.TestCase):
         
         self.assertEquals("index.htm", url.filename)
         
+        self.assertEquals("http://user:pass@www.google.com:8080/", str(url.host))
+        self.assertEquals("http://www.google.com:8080/", str(url.origin))
+        self.assertFalse(url.hostisip)
+        self.assert_(gurl.Url("http://127.0.0.1").hostisip)
+        self.assertEquals("/index.htm?id=1234", url.request)
+        
     def testOperators(self):
         self.assert_(gurl.Url("http://www.google.com") == gurl.Url("http://www.google.com"))
         self.assert_(gurl.Url("http://www.google.com") != gurl.Url("http://www.yahoo.com"))

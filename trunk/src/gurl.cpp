@@ -43,5 +43,10 @@ BOOST_PYTHON_MODULE(gurl)
 
     .def("schemeis", &CUrlWrapper::SchemeIs)
     .def("domainis", &CUrlWrapper::DomainIs)
+
+    .def_readonly("host", &CUrlWrapper::GetWithEmptyPath)
+    .def_readonly("origin", &CUrlWrapper::GetOrigin)
+    .def_readonly("hostisip", &CUrlWrapper::HostIsIPAddress)
+    .def_readonly("request", &CUrlWrapper::PathForRequest)
     ;
 }
