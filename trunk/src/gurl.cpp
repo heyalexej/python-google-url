@@ -23,6 +23,9 @@ BOOST_PYTHON_MODULE(gurl)
     .def("join", &CUrlWrapper::ResolveA)
     .def("join", &CUrlWrapper::ResolveW)
 
+    .def("spec", &CUrlWrapper::GetSpec, (py::arg("raw") = false))
+    .def("isstandard", &CUrlWrapper::IsStandard)
+
     .def_readonly("scheme", &CUrlWrapper::GetScheme)
     .def_readonly("username", &CUrlWrapper::GetUsername)
     .def_readonly("password", &CUrlWrapper::GetPassword)
@@ -32,8 +35,9 @@ BOOST_PYTHON_MODULE(gurl)
     .def_readonly("query", &CUrlWrapper::GetQuery)
     .def_readonly("fragment", &CUrlWrapper::GetRef)
 
-    .def_readonly("filename", &CUrlWrapper::GetFilename)
+    .def_readonly("filename", &CUrlWrapper::GetFilename)    
 
+    .def("schemeis", &CUrlWrapper::SchemeIs)
     .def("domainis", &CUrlWrapper::DomainIs)
     ;
 }

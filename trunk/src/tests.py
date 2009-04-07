@@ -20,12 +20,15 @@ class TestUrl(unittest.TestCase):
         url = gurl.Url("http://www.google.com")
         
         self.assert_(url)
+        self.assert_(url.isstandard())
         self.assertFalse(url.empty())
+        self.assertEquals("http://www.google.com/", url.spec())
         
-        url = gurl.Url("invalid url")
+        url = gurl.Url("http://google.com:foo/")
 
         self.assertFalse(url)
-        self.assert_(url.empty())
+        
+        self.assertEquals("http://google.com:foo/", url.spec(raw=True))
         
         url = gurl.Url()
 
@@ -35,8 +38,15 @@ class TestUrl(unittest.TestCase):
     def testMethods(self):
         url = gurl.Url("http://www.google.com/index.htm")
         
+        self.assert_(url.isstandard())
+        
         self.assertEquals("http://www.google.com/ad.js", str(url.join("ad.js")))
         self.assertEquals("http://www.google.com/ad.js", str(url.join(u"ad.js")))
+        
+        self.assert_(url.schemeis("http"))
+        
+        self.assertFalse(url.schemeis("ftp"))
+        self.assertFalse(url.schemeis("HTTP"))
         
         self.assert_(url.domainis("www.google.com"))
         self.assert_(url.domainis("google.com"))
@@ -56,6 +66,8 @@ class TestUrl(unittest.TestCase):
         self.assertEquals("/index.htm", url.path)
         self.assertEquals("id=1234", url.query)
         self.assertEquals("tag", url.fragment)
+        
+        self.assertEquals("index.htm", url.filename)
 
 if __name__ == '__main__':
     if "-v" in sys.argv:

@@ -96,6 +96,8 @@ public:
     return CUrlWrapper(m_url.Resolve(relative));
   }
 
+  const std::string GetSpec(bool raw=false) { return raw ? m_url.possibly_invalid_spec() : m_url.spec(); }
+
   const std::string GetScheme(void) { return m_url.scheme(); }
   py::object GetUsername(void) { return m_url.has_username() ? convert(m_url.username()) : py::object(py::handle<>(Py_None)); }
   py::object GetPassword(void) { return m_url.has_password() ? convert(m_url.password()) : py::object(py::handle<>(Py_None)); }
@@ -106,6 +108,8 @@ public:
   const std::string GetRef(void) { return m_url.ref(); }
 
   const std::string GetFilename(void) { return m_url.ExtractFileName(); }
+  bool IsStandard(void) { return m_url.IsStandard(); }
 
+  bool SchemeIs(const std::string& scheme) { return m_url.SchemeIs(scheme.c_str()); }
   bool DomainIs(const std::string& domain) { return m_url.DomainIs(domain.c_str(), domain.size()); }
 };
