@@ -14,6 +14,10 @@ BOOST_PYTHON_MODULE(gurl)
     .def(py::init<const std::wstring>())
     .def(py::init<const CUrlWrapper>())
 
+    .def(py::self == py::self)
+    .def(py::self != py::self)
+    .def(py::self < py::self)
+
     .def(str(py::self))
 
     .def("__nonzero__", &CUrlWrapper::operator bool)

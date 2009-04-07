@@ -81,6 +81,21 @@ public:
     return m_url.is_valid();
   }
 
+  bool operator ==(const CUrlWrapper& obj) const
+  {
+    return m_url == obj.m_url;
+  }
+
+  bool operator !=(const CUrlWrapper& obj) const
+  {
+    return m_url != obj.m_url;
+  }
+
+  bool operator <(const CUrlWrapper& obj) const
+  {
+    return m_url < obj.m_url;
+  }
+
   bool IsEmpty(void) const
   {
     return m_url.is_empty();

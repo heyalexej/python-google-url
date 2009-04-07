@@ -68,6 +68,11 @@ class TestUrl(unittest.TestCase):
         self.assertEquals("tag", url.fragment)
         
         self.assertEquals("index.htm", url.filename)
+        
+    def testOperators(self):
+        self.assert_(gurl.Url("http://www.google.com") == gurl.Url("http://www.google.com"))
+        self.assert_(gurl.Url("http://www.google.com") != gurl.Url("http://www.yahoo.com"))
+        self.assert_(gurl.Url("http://www.google.com") < gurl.Url("http://www.yahoo.com"))
 
 if __name__ == '__main__':
     if "-v" in sys.argv:
