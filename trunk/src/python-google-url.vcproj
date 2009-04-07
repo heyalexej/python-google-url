@@ -40,6 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="..\lib\boost\inc;..\lib\python\inc"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;PYTHONGOOGLEURL_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
