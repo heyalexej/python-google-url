@@ -18,6 +18,18 @@ BOOST_PYTHON_MODULE(gurl)
 
     .def("__nonzero__", &CUrlWrapper::operator bool)
 
-    .def("empty", &CUrlWrapper::empty)
+    .def("empty", &CUrlWrapper::IsEmpty)
+
+    .def("resolve", &CUrlWrapper::ResolveA)
+    .def("resolve", &CUrlWrapper::ResolveW)
+
+    .def_readonly("scheme", &CUrlWrapper::GetScheme)
+    .def_readonly("username", &CUrlWrapper::GetUsername)
+    .def_readonly("password", &CUrlWrapper::GetPassword)
+    .def_readonly("hostname", &CUrlWrapper::GetHost)
+    .def_readonly("port", &CUrlWrapper::GetPort)
+    .def_readonly("path", &CUrlWrapper::GetPath)
+    .def_readonly("query", &CUrlWrapper::GetQuery)
+    .def_readonly("fragment", &CUrlWrapper::GetRef)
     ;
 }

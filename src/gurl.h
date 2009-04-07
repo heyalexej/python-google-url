@@ -27,6 +27,26 @@ namespace py = boost::python;
 class CUrlWrapper
 {
   GURL m_url;
+
+  CUrlWrapper(const GURL& url)
+    : m_url(url)
+  {
+
+  }
+
+  py::object convert(const std::string& value) const
+  {
+    return py::str(value.c_str());
+  }
+  py::object convert(PyObject *obj) const
+  {
+    return py::object(py::handle<>(obj));
+  }
+  template <typename T>
+  py::object convert(T value) const
+  {
+    return py::object(value);
+  }
 public:
   CUrlWrapper(void)
   {
@@ -61,8 +81,27 @@ public:
     return m_url.is_valid();
   }
 
-  bool empty(void) const
+  bool IsEmpty(void) const
   {
     return m_url.is_empty();
   }
+
+  const CUrlWrapper ResolveA(const std::string& relative) const
+  {
+    return CUrlWrapper(m_url.Resolve(relative));
+  }
+
+  const CUrlWrapper ResolveW(const std::wstring& relative) const
+  {
+    return CUrlWrapper(m_url.Resolve(relative));
+  }
+
+  const std::string GetScheme(void) { return m_url.scheme(); }
+  py::object GetUsername(void) { return m_url.has_username() ? convert(m_url.username()) : py::object(py::handle<>(Py_None)); }
+  py::object GetPassword(void) { return m_url.has_password() ? convert(m_url.password()) : py::object(py::handle<>(Py_None)); }
+  py::object GetHost(void) { return m_url.has_host() ? convert(m_url.host()) : py::object(py::handle<>(Py_None)); }
+  py::object GetPort(void) { return m_url.has_port() ? convert(atoi(m_url.port().c_str())) : py::object(py::handle<>(Py_None)); }
+  const std::string GetPath(void) { return m_url.path(); }
+  const std::string GetQuery(void) { return m_url.query(); }
+  const std::string GetRef(void) { return m_url.ref(); }
 };
