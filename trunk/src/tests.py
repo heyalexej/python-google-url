@@ -14,7 +14,7 @@ class TestUrl(unittest.TestCase):
         
         url = gurl.Url("http://www.google.com")
         
-        self.assertEquals(str(url), str(gurl.Url(url)))
+        self.assert_(url == gurl.Url(url))
         
     def testNonzeroAndEmpty(self):
         url = gurl.Url("http://www.google.com")
@@ -79,6 +79,59 @@ class TestUrl(unittest.TestCase):
         self.assert_(gurl.Url("http://www.google.com") == gurl.Url("http://www.google.com"))
         self.assert_(gurl.Url("http://www.google.com") != gurl.Url("http://www.yahoo.com"))
         self.assert_(gurl.Url("http://www.google.com") < gurl.Url("http://www.yahoo.com"))
+
+class TestUrlBuilder(unittest.TestCase):
+    def testConstructor(self):
+        self.assertEquals("http://www.google.com/", str(gurl.UrlBuilder("http://www.google.com")))
+        
+        self.assertEquals("http://www.google.com/", str(gurl.UrlBuilder(u"http://www.google.com")))
+        
+        url = gurl.Url("http://www.google.com")
+        
+        self.assert_(url == gurl.UrlBuilder(url))
+        
+    def testProperties(self):
+        url = gurl.UrlBuilder("http://user:pass@www.google.com:8080/index.htm?id=1234#tag")
+        
+        url.scheme = "https"
+        
+        self.assertEquals("https", url.scheme)
+        
+        url.username = "who"
+        
+        self.assertEquals("who", url.username)
+        
+        url.password = "hello"
+        
+        self.assertEquals("hello", url.password)
+        
+        url.hostname = "www.microsoft.com"
+        
+        self.assertEquals("www.microsoft.com", url.hostname)
+                
+        url.port = 80
+        
+        self.assertEquals(80, url.port)
+        
+        url.path = "/test"
+        
+        self.assertEquals("/test", url.path)
+        
+        url.query = "name=flier"
+        
+        self.assertEquals("name=flier", url.query)
+        
+        url.fragment = "test"
+        
+        self.assertEquals("test", url.fragment)
+        
+        url.username = None
+        url.password = None
+        url.port = None
+        url.path = None
+        url.fragment = None
+        
+        self.assertEquals("https://www.microsoft.com/?name=flier", str(url))
 
 if __name__ == '__main__':
     if "-v" in sys.argv:
