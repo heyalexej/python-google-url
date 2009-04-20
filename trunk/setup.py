@@ -36,7 +36,7 @@ gurl_module = Extension(
 
 setup(
     name = "python-google-url",
-    version = "0.1",
+    version = "0.2",
     py_modules = [],
     ext_modules = [gurl_module],
     packages = find_packages("src"),
