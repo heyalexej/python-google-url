@@ -1,18 +1,18 @@
 #include "gurl.h"
 
-std::ostream& operator <<(std::ostream& os, const CUrlWrapper& wrapper)
+std::ostream& operator <<(std::ostream& os, const CUrl& url)
 { 
-  os << static_cast<const GURL&>(wrapper);
+  os << static_cast<const GURL&>(url);
 
   return os;
 }
 
 BOOST_PYTHON_MODULE(gurl)
 {
-  py::class_<CUrlWrapper>("Url", py::init<>())
+  py::class_<CUrl>("Url", py::init<>())
     .def(py::init<const std::string>())
     .def(py::init<const std::wstring>())
-    .def(py::init<const CUrlWrapper>())
+    .def(py::init<const CUrl>())
 
     .def(py::self == py::self)
     .def(py::self != py::self)
@@ -20,33 +20,33 @@ BOOST_PYTHON_MODULE(gurl)
 
     .def(str(py::self))
 
-    .def("__nonzero__", &CUrlWrapper::operator bool)
+    .def("__nonzero__", &CUrl::operator bool)
 
-    .def("empty", &CUrlWrapper::IsEmpty)
+    .def("empty", &CUrl::IsEmpty)
 
-    .def("join", &CUrlWrapper::ResolveA)
-    .def("join", &CUrlWrapper::ResolveW)
+    .def("join", &CUrl::ResolveA)
+    .def("join", &CUrl::ResolveW)
 
-    .def("spec", &CUrlWrapper::GetSpec, (py::arg("raw") = false))
-    .def("isstandard", &CUrlWrapper::IsStandard)
+    .def("spec", &CUrl::GetSpec, (py::arg("raw") = false))
+    .def("isstandard", &CUrl::IsStandard)
 
-    .def_readonly("scheme", &CUrlWrapper::GetScheme)
-    .def_readonly("username", &CUrlWrapper::GetUsername)
-    .def_readonly("password", &CUrlWrapper::GetPassword)
-    .def_readonly("hostname", &CUrlWrapper::GetHost)
-    .def_readonly("port", &CUrlWrapper::GetPort)
-    .def_readonly("path", &CUrlWrapper::GetPath)
-    .def_readonly("query", &CUrlWrapper::GetQuery)
-    .def_readonly("fragment", &CUrlWrapper::GetRef)
+    .def_readonly("scheme", &CUrl::GetScheme)
+    .def_readonly("username", &CUrl::GetUsername)
+    .def_readonly("password", &CUrl::GetPassword)
+    .def_readonly("hostname", &CUrl::GetHost)
+    .def_readonly("port", &CUrl::GetPort)
+    .def_readonly("path", &CUrl::GetPath)
+    .def_readonly("query", &CUrl::GetQuery)
+    .def_readonly("fragment", &CUrl::GetRef)
 
-    .def_readonly("filename", &CUrlWrapper::GetFilename)    
+    .def_readonly("filename", &CUrl::GetFilename)    
 
-    .def("schemeis", &CUrlWrapper::SchemeIs)
-    .def("domainis", &CUrlWrapper::DomainIs)
+    .def("schemeis", &CUrl::SchemeIs)
+    .def("domainis", &CUrl::DomainIs)
 
-    .def_readonly("host", &CUrlWrapper::GetWithEmptyPath)
-    .def_readonly("origin", &CUrlWrapper::GetOrigin)
-    .def_readonly("hostisip", &CUrlWrapper::HostIsIPAddress)
-    .def_readonly("request", &CUrlWrapper::PathForRequest)
+    .def_readonly("host", &CUrl::GetWithEmptyPath)
+    .def_readonly("origin", &CUrl::GetOrigin)
+    .def_readonly("hostisip", &CUrl::HostIsIPAddress)
+    .def_readonly("request", &CUrl::PathForRequest)
     ;
 }
