@@ -194,6 +194,10 @@
 				RelativePath=".\Url.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\UrlBuilder.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -202,6 +206,10 @@
 			>
 			<File
 				RelativePath=".\Url.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UrlBuilder.h"
 				>
 			</File>
 		</Filter>
