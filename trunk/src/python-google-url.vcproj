@@ -67,6 +67,7 @@
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				LinkTimeCodeGeneration="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -92,7 +93,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(SolutionDir)\*.py $(OutDir)&#x0D;&#x0A;$(OutDir)\tests.py -v"
+				CommandLine="copy $(SolutionDir)\*.py $(OutDir)&#x0D;&#x0A;$(OutDir)\tests.py -v&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -173,7 +174,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(SolutionDir)\*.py $(OutDir)&#x0D;&#x0A;$(OutDir)\tests.py -v"
+				CommandLine="copy $(SolutionDir)\*.py $(OutDir)&#x0D;&#x0A;$(OutDir)\tests.py -v&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -189,6 +190,10 @@
 				RelativePath=".\gurl.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\Url.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -196,7 +201,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\gurl.h"
+				RelativePath=".\Url.h"
 				>
 			</File>
 		</Filter>

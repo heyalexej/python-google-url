@@ -132,4 +132,6 @@ public:
 
   bool SchemeIs(const std::string& scheme) { return m_url.SchemeIs(scheme.c_str()); }
   bool DomainIs(const std::string& domain) { return m_url.DomainIs(domain.c_str(), domain.size()); }
+
+  static void Expose(void);
 };
