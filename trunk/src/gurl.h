@@ -24,11 +24,11 @@ namespace py = boost::python;
 # pragma warning( pop )
 #endif 
 
-class CUrlWrapper
+class CUrl
 {
   GURL m_url;
 
-  CUrlWrapper(const GURL& url)
+  CUrl(const GURL& url)
     : m_url(url)
   {
 
@@ -48,25 +48,25 @@ class CUrlWrapper
     return py::object(value);
   }
 public:
-  CUrlWrapper(void)
+  CUrl(void)
   {
 
   }
 
-  CUrlWrapper(const std::string& url)
+  CUrl(const std::string& url)
     : m_url(url)
   {
 
   }
 
-  CUrlWrapper(const std::wstring& url)
+  CUrl(const std::wstring& url)
     : m_url(url)
   {
 
   }
 
-  CUrlWrapper(const CUrlWrapper& wrapper)
-    : m_url(wrapper.m_url)
+  CUrl(const CUrl& other)
+    : m_url(other.m_url)
   {
 
   }
@@ -81,17 +81,17 @@ public:
     return m_url.is_valid();
   }
 
-  bool operator ==(const CUrlWrapper& obj) const
+  bool operator ==(const CUrl& obj) const
   {
     return m_url == obj.m_url;
   }
 
-  bool operator !=(const CUrlWrapper& obj) const
+  bool operator !=(const CUrl& obj) const
   {
     return m_url != obj.m_url;
   }
 
-  bool operator <(const CUrlWrapper& obj) const
+  bool operator <(const CUrl& obj) const
   {
     return m_url < obj.m_url;
   }
@@ -101,14 +101,14 @@ public:
     return m_url.is_empty();
   }
 
-  const CUrlWrapper ResolveA(const std::string& relative) const
+  const CUrl ResolveA(const std::string& relative) const
   {
-    return CUrlWrapper(m_url.Resolve(relative));
+    return CUrl(m_url.Resolve(relative));
   }
 
-  const CUrlWrapper ResolveW(const std::wstring& relative) const
+  const CUrl ResolveW(const std::wstring& relative) const
   {
-    return CUrlWrapper(m_url.Resolve(relative));
+    return CUrl(m_url.Resolve(relative));
   }
 
   const std::string GetSpec(bool raw=false) { return raw ? m_url.possibly_invalid_spec() : m_url.spec(); }
@@ -125,8 +125,8 @@ public:
   const std::string GetFilename(void) { return m_url.ExtractFileName(); }
   bool IsStandard(void) { return m_url.IsStandard(); }
 
-  const CUrlWrapper GetWithEmptyPath(void) { return CUrlWrapper(m_url.GetWithEmptyPath()); }
-  const CUrlWrapper GetOrigin(void) { return CUrlWrapper(m_url.GetOrigin()); }
+  const CUrl GetWithEmptyPath(void) { return CUrl(m_url.GetWithEmptyPath()); }
+  const CUrl GetOrigin(void) { return CUrl(m_url.GetOrigin()); }
   bool HostIsIPAddress(void) { return m_url.HostIsIPAddress(); }
   const std::string PathForRequest(void) { return m_url.PathForRequest(); }
 
