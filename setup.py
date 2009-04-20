@@ -5,7 +5,7 @@ import os
 from setuptools import setup, find_packages
 from setuptools.extension import Extension
 
-source_files = ["gurl.cpp"]
+source_files = ["Url.cpp", "UrlBuilder.cpp", "gurl.cpp"]
 third_party_libraries = ["python", "boost", "google-url"]
 
 macros = [("BOOST_PYTHON_STATIC_LIB", None), ("WIN32", None), ]
