@@ -36,11 +36,10 @@ gurl_module = Extension(
 
 setup(
     name = "python-google-url",
-    version = "0.2",
-    py_modules = [],
+    version = "0.3",
     ext_modules = [gurl_module],
-    packages = find_packages("src"),
-    package_dir = { "" : "src" },    
+    pakcages = find_packages("src"),
+    package_dir = { "" : "src" },
     test_suite = "tests",
     
     # metadata for upload to PyPI
