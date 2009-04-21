@@ -1,8 +1,12 @@
 #include "Url.h"
 
+#include <cassert>
 #include <fstream> 
 
 #include <boost/algorithm/string.hpp>
+#include <boost/filesystem.hpp>
+
+namespace fs = boost::filesystem;
 
 std::ostream& operator <<(std::ostream& os, const CUrl& url)
 { 
@@ -58,9 +62,40 @@ void CUrl::Expose(void)
 
 const CUrl::DomainSet CUrl::LoadTldNames(void)
 {
-  std::ifstream datafile("effective_tld_names.dat");
+  const std::string FILENAME = "effective_tld_names.dat";
+
+  fs::path filepath = FILENAME;
+
+  if (!fs::is_regular_file(filepath))
+  {
+    PyObject *paths = ::PySys_GetObject("path");
+
+    assert(PyList_Check(paths));
+
+    for (Py_ssize_t i=0; i<PyList_GET_SIZE(paths); i++)
+    {
+      PyObject *item = PyList_GET_ITEM(paths, i);
+
+      assert(PyString_Check(item));
+
+      filepath = PyString_AS_STRING(item);
+
+      if (fs::is_directory(filepath))
+      {
+        filepath /= FILENAME;
+
+        if (fs::is_regular_file(filepath))        
+          break;        
+      }    
+    }
+  }
 
   DomainSet domains;
+
+  if (!fs::is_regular_file(filepath)) return domains;
+
+  std::ifstream datafile(filepath.string().c_str());
+  
   std::string line;
 
   while (std::getline(datafile, line))
