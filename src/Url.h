@@ -9,6 +9,9 @@
 # pragma warning( disable : 4512 ) // 'class' : assignment operator could not be generated
 #endif 
 
+#include <map>
+#include <string> 
+
 #include <boost/python.hpp>
 namespace py = boost::python;
 
@@ -48,6 +51,30 @@ private:
   {
     return py::object(value);
   }
+
+  struct DomainEntry
+  {
+    bool exception;
+    bool wildcard;
+
+    DomainEntry()
+      : exception(false), wildcard(false)
+    {
+
+    }
+
+    void Combine(const DomainEntry& entry)
+    {
+      exception |= entry.exception;
+      wildcard |=  entry.wildcard;
+    }
+  };
+
+  typedef std::map<std::string, DomainEntry> DomainSet;
+
+  static const DomainSet LoadTldNames(void);
+  size_t GetRegistryLength(const std::string& host) const;
+  const std::string GetDomainAndRegistry(const std::string& host) const;
 public:
   CUrl(void)
   {
@@ -124,6 +151,7 @@ public:
   const std::string GetRef(void) { return m_url.ref(); }
 
   const std::string GetFilename(void) { return m_url.ExtractFileName(); }
+  const std::string GetDomain(void);
   bool IsStandard(void) { return m_url.IsStandard(); }
 
   const CUrl GetWithEmptyPath(void) { return CUrl(m_url.GetWithEmptyPath()); }

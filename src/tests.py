@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import sys
 
 import unittest
@@ -79,6 +81,14 @@ class TestUrl(unittest.TestCase):
         self.assert_(gurl.Url("http://www.google.com") == gurl.Url("http://www.google.com"))
         self.assert_(gurl.Url("http://www.google.com") != gurl.Url("http://www.yahoo.com"))
         self.assert_(gurl.Url("http://www.google.com") < gurl.Url("http://www.yahoo.com"))
+        
+    def testDomain(self):
+        self.assertEquals("google.com", gurl.Url("http://www.google.com").domain)
+        self.assertEquals("google.com.cn", gurl.Url("http://www.google.com.cn").domain)
+        self.assertEquals("%E5%85%AC%E5%8F%B8.cn", gurl.Url(u"http://www.google.公司.cn").domain)
+        
+        self.assertEquals("google.edu.ar", gurl.Url("http://www.google.edu.ar").domain)
+        self.assertEquals("uba.ar", gurl.Url("http://www.google.uba.ar").domain)
 
 class TestUrlBuilder(unittest.TestCase):
     def testConstructor(self):
