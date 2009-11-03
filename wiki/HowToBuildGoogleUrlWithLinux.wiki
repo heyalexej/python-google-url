@@ -1,0 +1,37 @@
+#summary How to build Google URL library with Linux
+
+= Introduction =
+
+How to build Google URL library with Linux
+
+= Details =
+
+  # Checkout the latest source from SVN
+{{{
+svn checkout http://google-url.googlecode.com/svn/trunk/ googleurl
+}}}
+  # Create a SContruct file int the googleurl/src folder
+{{{
+env = Environment(CPPPATH=["..", "../../"])
+
+source = [str(file) for file in Glob('*.cc')]
+
+for file in Glob('*test*.cc'):
+  source.remove(str(file))
+
+env.SharedLibrary('google-url', source)
+env.StaticLibrary('google-url', source)
+}}}
+  # Modify googleurl/base/logging.h and  for compatibility
+{{{
+// logging.h:10
+#ifdef WIN32
+#include <tchar.h>
+#else
+#define TCHAR char
+#endif
+
+// basictypes.h:9
+typedef unsigned long long uint64;
+}}}
+  # Install [http://www.scons.org/ SCons] and run the scons command in the src folder
