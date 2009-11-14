@@ -1,4 +1,5 @@
 #summary How to build Google URL library with Linux
+#labels Featured,Phase-Deploy
 
 = Introduction =
 
@@ -22,8 +23,11 @@ for file in Glob('*test*.cc'):
 env.SharedLibrary('googleurl', source)
 env.StaticLibrary('googleurl', source)
 }}}
-  # Modify googleurl/base/logging.h and basictypes.h for compatibility
+  # Modify string16.cc, logging.h and basictypes.h in googleurl/base folder for compatibility
 {{{
+// string16.cc:31
+#include <string.h>
+
 // logging.h:10
 #ifdef WIN32
 #include <tchar.h>
