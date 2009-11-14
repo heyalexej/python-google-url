@@ -28,7 +28,7 @@ if os.name == "nt":
     extra_link_args += ["/DLL", "/OPT:REF", "/OPT:ICF", "/MACHINE:X86", "/LTCG"]
 elif os.name == "posix":
     source_files += ["logging.cpp"]
-    libraries += ["boost_python", "boost_system", "boost_filesystem", "base", "rt"]
+    libraries += ["boost_python", "boost_system", "boost_filesystem", "base", "rt", "icuuc", "icui18n"]
     include_dirs = [os.environ['GOOGLE_URL_HOME'],
                     os.path.join(os.environ['GOOGLE_URL_HOME'], '..')]
     library_dirs = [os.path.join(os.environ['GOOGLE_URL_HOME'], 'src'),
