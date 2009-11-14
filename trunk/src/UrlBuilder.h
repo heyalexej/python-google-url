@@ -17,8 +17,9 @@ class CUrlBuilder : public CUrl
       (replacements.*clearer)(); 
     }
     else if (PyInt_Check(value.ptr()))
-    {
-      str = _ltoa(PyInt_AS_LONG(value.ptr()), buf, 10);
+    {      
+      buf[snprintf(buf, 64, "%ld", PyInt_AS_LONG(value.ptr()))] = 0;
+      str = buf;
     }
     else if (PyString_Check(value.ptr()))
     {
@@ -46,7 +47,7 @@ public:
 
   }
 
-  CUrlBuilder(const std::wstring& url)
+  CUrlBuilder(const string16& url)
     : CUrl(url)
   {
 

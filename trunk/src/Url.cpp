@@ -19,7 +19,7 @@ void CUrl::Expose(void)
 {
   py::class_<CUrl>("Url", py::init<>())
     .def(py::init<const std::string>())
-    .def(py::init<const std::wstring>())
+    .def(py::init<const string16>())
     .def(py::init<const CUrl>())
 
     .def(py::self == py::self)

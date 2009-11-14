@@ -87,7 +87,7 @@ public:
 
   }
 
-  CUrl(const std::wstring& url)
+  CUrl(const string16& url)
     : m_url(url)
   {
 
@@ -134,7 +134,7 @@ public:
     return CUrl(m_url.Resolve(relative));
   }
 
-  const CUrl ResolveW(const std::wstring& relative) const
+  const CUrl ResolveW(const string16& relative) const
   {
     return CUrl(m_url.Resolve(relative));
   }
