@@ -62,7 +62,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="base.lib"
 				OutputFile="$(OutDir)\gurl.pyd"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(BOOST_HOME)\stage\lib&quot;;&quot;$(PYTHON_HOME)\libs&quot;;&quot;$(GOOGLE_URL_HOME)\build\$(ConfigurationName)&quot;;&quot;$(ICU_HOME)\$(ConfigurationName)\lib&quot;"
@@ -142,7 +141,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="base.lib"
 				OutputFile="$(OutDir)\gurl.pyd"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(BOOST_HOME)\stage\lib&quot;;&quot;$(PYTHON_HOME)\libs&quot;;&quot;$(GOOGLE_URL_HOME)\build\$(ConfigurationName)&quot;;&quot;$(ICU_HOME)\$(ConfigurationName)\lib&quot;"
@@ -189,6 +187,10 @@
 			>
 			<File
 				RelativePath=".\gurl.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\logging.cpp"
 				>
 			</File>
 			<File

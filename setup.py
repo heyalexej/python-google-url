@@ -5,7 +5,8 @@ import os
 from setuptools import setup, find_packages
 from setuptools.extension import Extension
 
-source_files = ["Url.cpp", "UrlBuilder.cpp", "gurl.cpp"]
+source_files = ["Url.cpp", "UrlBuilder.cpp", "gurl.cpp", "logging.cpp",
+                os.path.join(os.environ['GOOGLE_URL_HOME'], 'base', 'string16.cc')]
 
 libraries = ["googleurl"]
 macros = [("BOOST_PYTHON_STATIC_LIB", None), ]
@@ -26,7 +27,8 @@ if os.name == "nt":
     extra_compile_args += ["/O2", "/GL", "/MT", "/EHsc", "/Gy", "/Zi"]
     extra_link_args += ["/DLL", "/OPT:REF", "/OPT:ICF", "/MACHINE:X86", "/LTCG"]
 elif os.name == "posix":
-    libraries += ["boost_python", "base", "rt"]
+    source_files += ["logging.cpp"]
+    libraries += ["boost_python", "boost_system", "boost_filesystem", "base", "rt"]
     include_dirs = [os.environ['GOOGLE_URL_HOME'],
                     os.path.join(os.environ['GOOGLE_URL_HOME'], '..')]
     library_dirs = [os.path.join(os.environ['GOOGLE_URL_HOME'], 'src'),
