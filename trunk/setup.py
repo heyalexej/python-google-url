@@ -6,22 +6,31 @@ from setuptools import setup, find_packages
 from setuptools.extension import Extension
 
 source_files = ["Url.cpp", "UrlBuilder.cpp", "gurl.cpp"]
-third_party_libraries = ["python", "boost", "google-url"]
 
-macros = [("BOOST_PYTHON_STATIC_LIB", None), ("WIN32", None), ]
-include_dirs = [os.path.join("lib", lib, "inc") for lib in third_party_libraries]
-library_dirs = [os.path.join("lib", lib, "lib") for lib in third_party_libraries]
-libraries = []
-extra_compile_args = []
+libraries = ["googleurl"]
+macros = [("BOOST_PYTHON_STATIC_LIB", None), ]
+extra_compile_args = ["-DOMIT_DLOG_AND_DCHECK=1"]
 extra_link_args = []
 
 if os.name == "nt":
+    macros += [("WIN32", None), ]
+    include_dirs = [os.environ['BOOST_HOME'],
+                    os.path.join(os.environ['PYTHON_HOME'], 'include'),
+                    os.environ['GOOGLE_URL_HOME'],
+                    os.path.join(os.environ['GOOGLE_URL_HOME'], '..')]
+    library_dirs = [os.path.join(os.environ['BOOST_HOME'], 'stage', 'lib'),
+                    os.path.join(os.environ['PYTHON_HOME'], 'libs'),
+                    os.path.join(os.environ['GOOGLE_URL_HOME'], 'build', 'Release'),
+                    os.path.join(os.environ['ICU_HOME'], 'Release', 'lib'),]
     libraries += ["user32", "advapi32"]
     extra_compile_args += ["/O2", "/GL", "/MT", "/EHsc", "/Gy", "/Zi"]
     extra_link_args += ["/DLL", "/OPT:REF", "/OPT:ICF", "/MACHINE:X86", "/LTCG"]
 elif os.name == "posix":
-    libraries = ["boost_python", "rt"]
-
+    libraries += ["boost_python", "base", "rt"]
+    include_dirs = [os.environ['GOOGLE_URL_HOME'],
+                    os.path.join(os.environ['GOOGLE_URL_HOME'], '..')]
+    library_dirs = [os.path.join(os.environ['GOOGLE_URL_HOME'], 'src'),
+                    os.path.join(os.environ['GOOGLE_URL_HOME'], 'base'),]
 
 gurl_module = Extension(
     name = "gurl",
