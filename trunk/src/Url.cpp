@@ -3,10 +3,18 @@
 #include <cassert>
 #include <fstream> 
 
+#ifndef WIN32
+#include <unicode/ustring.h>
+#endif
+
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 
 namespace fs = boost::filesystem;
+
+#if BOOST_VERSION <= 103500
+#define is_regular_file is_regular
+#endif
 
 std::ostream& operator <<(std::ostream& os, const CUrl& url)
 { 
@@ -19,7 +27,7 @@ void CUrl::Expose(void)
 {
   py::class_<CUrl>("Url", py::init<>())
     .def(py::init<const std::string>())
-    .def(py::init<const string16>())
+    .def(py::init<const std::wstring>())
     .def(py::init<const CUrl>())
 
     .def(py::self == py::self)
@@ -58,6 +66,21 @@ void CUrl::Expose(void)
     .def_readonly("hostisip", &CUrl::HostIsIPAddress)
     .def_readonly("request", &CUrl::PathForRequest)
     ;
+}
+
+const string16 CUrl::to_string16(const std::wstring& str)
+{
+#ifdef WIN32
+  return str;
+#else
+  std::vector<UChar> buf(str.size()+1);
+  int32_t len = 0;
+  UErrorCode err = U_ZERO_ERROR;
+
+  UChar *s = u_strFromUTF32(&buf[0], buf.size(), &len, (const UChar32 *) str.c_str(), str.size(), &err);
+
+  return string16(s, len);
+#endif
 }
 
 const CUrl::DomainSet CUrl::LoadTldNames(void)

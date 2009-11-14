@@ -11,7 +11,7 @@ void CUrlBuilder::Expose(void)
 {
   py::class_<CUrlBuilder, py::bases<CUrl> >("UrlBuilder", py::init<>())
     .def(py::init<const std::string>())
-    .def(py::init<const string16>())
+    .def(py::init<const std::wstring>())
     .def(py::init<const CUrl>())
 
     .def(str(py::self))

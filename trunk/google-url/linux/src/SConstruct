@@ -5,5 +5,5 @@ source = [str(file) for file in Glob('*.cc')]
 for file in Glob('*test*.cc'):
   source.remove(str(file))
 
-env.SharedLibrary('google-url', source)
-env.StaticLibrary('google-url', source)
+env.SharedLibrary('googleurl', source)
+env.StaticLibrary('googleurl', source)

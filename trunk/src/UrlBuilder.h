@@ -47,7 +47,7 @@ public:
 
   }
 
-  CUrlBuilder(const string16& url)
+  CUrlBuilder(const std::wstring& url)
     : CUrl(url)
   {
 

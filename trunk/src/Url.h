@@ -18,7 +18,6 @@ namespace py = boost::python;
 #include <googleurl/src/gurl.h>
 
 #ifdef _WIN32
-# pragma comment( lib, "base" )
 # pragma comment( lib, "googleurl" )
 # pragma comment( lib, "icuuc" )
 #endif
@@ -75,6 +74,8 @@ private:
   static const DomainSet LoadTldNames(void);
   size_t GetRegistryLength(const std::string& host) const;
   const std::string GetDomainAndRegistry(const std::string& host) const;
+
+  static const string16 to_string16(const std::wstring& str);
 public:
   CUrl(void)
   {
@@ -87,10 +88,12 @@ public:
 
   }
 
-  CUrl(const string16& url)
-    : m_url(url)
+  CUrl(const std::wstring& url)    
   {
-
+    const string16 s = to_string16(url);
+    GURL g(s);
+    
+    m_url.Swap(&g);
   }
 
   CUrl(const CUrl& other)
@@ -134,9 +137,9 @@ public:
     return CUrl(m_url.Resolve(relative));
   }
 
-  const CUrl ResolveW(const string16& relative) const
+  const CUrl ResolveW(const std::wstring& relative) const
   {
-    return CUrl(m_url.Resolve(relative));
+    return CUrl(m_url.Resolve(to_string16(relative)));
   }
 
   const std::string GetSpec(bool raw=false) { return raw ? m_url.possibly_invalid_spec() : m_url.spec(); }
