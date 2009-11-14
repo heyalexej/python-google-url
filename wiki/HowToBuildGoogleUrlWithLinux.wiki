@@ -22,7 +22,7 @@ for file in Glob('*test*.cc'):
 env.SharedLibrary('googleurl', source)
 env.StaticLibrary('googleurl', source)
 }}}
-  # Modify googleurl/base/logging.h and  for compatibility
+  # Modify googleurl/base/logging.h and basictypes.h for compatibility
 {{{
 // logging.h:10
 #ifdef WIN32
@@ -34,4 +34,5 @@ env.StaticLibrary('googleurl', source)
 // basictypes.h:9
 typedef unsigned long long uint64;
 }}}
-  # Install [http://www.scons.org/ SCons] and run the scons command in the src folder
+  # Install [http://www.scons.org/ SCons] and run the scons command in the googleurl/src folder
+  # export a environment variable GOOGLE_URL_HOME for it
