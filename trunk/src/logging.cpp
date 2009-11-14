@@ -1,6 +1,6 @@
 #include "base/logging.h"
 
-using namespace logging;
+namespace logging {
 
 LogMessage::LogMessage(const char* file, int line, LogSeverity severity, int ctr)
 {
@@ -29,4 +29,6 @@ LogMessage::~LogMessage()
 
 void LogMessage::Init(const char* file, int line)
 {
+}
+
 }
