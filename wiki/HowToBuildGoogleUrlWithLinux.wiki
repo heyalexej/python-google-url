@@ -28,6 +28,9 @@ env.StaticLibrary('googleurl', source)
 // string16.cc:31
 #include <string.h>
 
+// string16.h:54
+#include <cstdio>
+
 // logging.h:10
 #ifdef WIN32
 #include <tchar.h>
