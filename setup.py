@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os
+import os, os.path, re, shutil
 
 from setuptools import setup, find_packages
 from setuptools.extension import Extension
@@ -21,10 +21,16 @@ if os.name == "nt":
     library_dirs = [os.path.join(os.environ['BOOST_HOME'], 'stage', 'lib'),
                     os.path.join(os.environ['PYTHON_HOME'], 'libs'),
                     os.path.join(os.environ['GOOGLE_URL_HOME'], 'build', 'Release'),
-                    os.path.join(os.environ['ICU_HOME'], 'Release', 'lib'),]
+                    os.path.join(os.environ['ICU_HOME'],  'lib'),]
     libraries += ["user32", "advapi32"]
     extra_compile_args += ["/O2", "/GL", "/MT", "/EHsc", "/Gy", "/Zi"]
     extra_link_args += ["/DLL", "/OPT:REF", "/OPT:ICF", "/MACHINE:X86", "/LTCG"]
+    
+    for root, dirs, files in os.walk(os.path.join(os.environ['ICU_HOME'], 'bin')):
+        for name in files:
+            if re.compile('icuuc\d+\.dll', re.I).match(name):
+                shutil.copyfile(os.path.join(root, name),
+                                os.path.join(os.path.dirname(__file__), "src", "gurl", name))
 elif os.name == "posix":
     source_files += [os.path.join(os.environ['GOOGLE_URL_HOME'], 'base', 'string16.cc')]
     libraries += ["boost_python", "boost_system", "boost_filesystem", "rt", "icuuc", "icui18n"]
@@ -34,7 +40,7 @@ elif os.name == "posix":
                     os.path.join(os.environ['GOOGLE_URL_HOME'], 'base'),]
 
 gurl_module = Extension(
-    name = "gurl",
+    name = "_gurl",
     sources = [os.path.join("src", file) for file in source_files],
     define_macros = macros,
     include_dirs = include_dirs,
@@ -46,10 +52,12 @@ gurl_module = Extension(
 
 setup(
     name = "python-google-url",
-    version = "0.3",
+    version = "0.4",
+    ext_package = "gurl",
     ext_modules = [gurl_module],
-    pakcages = find_packages("src"),
-    package_dir = { "" : "src" },
+    packages = ["gurl"],
+    package_dir = { "gurl" : os.path.join("src", "gurl") },
+    package_data = { "gurl" : ["*.dat", "*.dll"] },
     test_suite = "tests",
     
     # metadata for upload to PyPI
