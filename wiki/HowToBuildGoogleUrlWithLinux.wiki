@@ -42,15 +42,16 @@ env.StaticLibrary('googleurl', source)
 typedef unsigned long long uint64;
 }}}
   # Install [http://www.scons.org/ SCons] and run the scons command in the googleurl/src folder
+{{{
+$cd `pwd`/googleurl
+$scons 
+}}}
   # export a environment variable GOOGLE_URL_HOME point to the googleurl folder
 {{{
 $export GOOGLE_URL_HOME=`pwd`/googleurl
 }}}
   # build and install the python extension
 {{{
-$cd `pwd`/googleurl
-$scons 
-$cd ../
 $svn checkout http://python-google-url.googlecode.com/svn/trunk/ python-google-url
 $cd python-google-url
 $python setup.py build
