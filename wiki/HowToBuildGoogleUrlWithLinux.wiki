@@ -9,7 +9,7 @@ How to build Google URL library with Linux
 
   # Checkout the latest source from SVN
 {{{
-svn checkout http://google-url.googlecode.com/svn/trunk/ googleurl
+$svn checkout http://google-url.googlecode.com/svn/trunk/ googleurl
 }}}
   # Create a [http://code.google.com/p/python-google-url/source/browse/trunk/google-url/linux/src/SConstruct SConstruct] file int the googleurl/src folder
 {{{
@@ -42,4 +42,27 @@ env.StaticLibrary('googleurl', source)
 typedef unsigned long long uint64;
 }}}
   # Install [http://www.scons.org/ SCons] and run the scons command in the googleurl/src folder
-  # export a environment variable GOOGLE_URL_HOME for it
+  # export a environment variable GOOGLE_URL_HOME point to the googleurl folder
+{{{
+$export GOOGLE_URL_HOME=`pwd`/googleurl
+}}}
+  # build and install the python extension
+{{{
+$cd `pwd`/googleurl
+$scons 
+$cd ../
+$svn checkout http://python-google-url.googlecode.com/svn/trunk/ python-google-url
+$cd python-google-url
+$python setup.py build
+$sudo python setup.py install
+}}}
+  # try to use it
+{{{
+$python
+Python 2.6.1 (r261:67515, Apr 12 2009, 03:51:25) 
+[GCC 4.3.2] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import gurl
+>>> u = gurl.Url('http://code.google.com/p/python-google-url/')
+>>> str(u)
+}}}
