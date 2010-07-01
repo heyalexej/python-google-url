@@ -11,7 +11,7 @@ How to build Google URL library with Linux
 {{{
 $svn checkout http://google-url.googlecode.com/svn/trunk/ googleurl
 }}}
-  # Create a [http://code.google.com/p/python-google-url/source/browse/trunk/google-url/linux/src/SConstruct SConstruct] file int the googleurl/src folder
+  # Create a [http://code.google.com/p/python-google-url/source/browse/trunk/google-url/linux/src/SConstruct SConstruct] file in the googleurl/src folder
 {{{
 env = Environment(CPPPATH=["..", "../../"])
 
