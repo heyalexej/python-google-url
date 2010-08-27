@@ -20,7 +20,7 @@ source = [str(file) for file in Glob('*.cc')]
 for file in Glob('*test*.cc'):
   source.remove(str(file))
 
-env.SharedLibrary('googleurl', source)
+#env.SharedLibrary('googleurl', source)
 env.StaticLibrary('googleurl', source)
 }}}
   # Modify string16.cc, logging.h and basictypes.h in googleurl/base folder for compatibility
