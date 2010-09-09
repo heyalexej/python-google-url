@@ -13,7 +13,7 @@ $svn checkout http://google-url.googlecode.com/svn/trunk/ googleurl
 }}}
   # Create a [http://code.google.com/p/python-google-url/source/browse/trunk/google-url/linux/src/SConstruct SConstruct] file in the googleurl/src folder
 {{{
-env = Environment(CPPPATH=["..", "../../"])
+env = Environment(CPPPATH=["..", "../../"], CPPFLAGS=["-fPIC"])
 
 source = [str(file) for file in Glob('*.cc')]
 
@@ -43,12 +43,12 @@ typedef unsigned long long uint64;
 }}}
   # Install [http://www.scons.org/ SCons] and run the scons command in the googleurl/src folder
 {{{
-$cd `pwd`/googleurl
+$cd googleurl/src
 $scons 
 }}}
   # export a environment variable GOOGLE_URL_HOME point to the googleurl folder
 {{{
-$export GOOGLE_URL_HOME=`pwd`/googleurl
+$export GOOGLE_URL_HOME=<Your path>/googleurl
 }}}
   # build and install the python extension
 {{{
