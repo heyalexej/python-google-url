@@ -28,7 +28,7 @@ if os.name == "nt":
     
     for root, dirs, files in os.walk(os.path.join(os.environ['ICU_HOME'], 'bin')):
         for name in files:
-            if re.compile('icuuc\d+\.dll', re.I).match(name):
+            if re.compile('icu(uc|dt)\d+\.dll', re.I).match(name):
                 shutil.copyfile(os.path.join(root, name),
                                 os.path.join(os.path.dirname(__file__), "src", "gurl", name))
 elif os.name == "posix":
