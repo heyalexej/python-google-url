@@ -48,7 +48,7 @@ extra_compile_args = ["-DOMIT_DLOG_AND_DCHECK=1"]
 extra_link_args = []
 
 if os.name == "nt":
-    macros += [("WIN32", None), ]
+    macros += [("WIN32", None), ("U_STATIC_IMPLEMENTATION", None),]
     include_dirs = [BOOST_HOME,
                     os.path.join(PYTHON_HOME, 'include'),
                     GOOGLE_URL_HOME,

@@ -69,12 +69,6 @@ private:
     }
   };
 
-  typedef std::map<std::string, DomainEntry> DomainSet;
-
-  static const DomainSet LoadTldNames(void);
-  size_t GetRegistryLength(const std::string& host) const;
-  const std::string GetDomainAndRegistry(const std::string& host) const;
-
   static const string16 to_string16(const std::wstring& str);
 public:
   CUrl(void)
@@ -154,7 +148,6 @@ public:
   const std::string GetRef(void) { return m_url.ref(); }
 
   const std::string GetFilename(void) { return m_url.ExtractFileName(); }
-  const std::string GetDomain(void);
   bool IsStandard(void) { return m_url.IsStandard(); }
 
   const CUrl GetWithEmptyPath(void) { return CUrl(m_url.GetWithEmptyPath()); }
