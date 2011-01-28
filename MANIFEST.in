@@ -1,1 +1,1 @@
-recursive-include src *.h *.sln *.vcproj *.dat
+recursive-include src *.h *.sln *.vcproj *.dat *.py
