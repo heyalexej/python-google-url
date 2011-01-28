@@ -6,7 +6,10 @@ import sys
 import unittest
 import logging
 
-import gurl
+try:
+    import __init__ as gurl
+except:
+    import gurl
 
 class TestUrl(unittest.TestCase):
     def testConstructor(self):
@@ -84,11 +87,15 @@ class TestUrl(unittest.TestCase):
         
     def testDomain(self):
         self.assertEquals("google.com", gurl.Url("http://www.google.com").domain)
+        self.assertEquals("google.com", gurl.Url("http://www.google.com.").domain)
         self.assertEquals("google.com.cn", gurl.Url("http://www.google.com.cn").domain)
         self.assertEquals("xn--55qx5d.cn", gurl.Url(u"http://www.google.公司.cn").domain)
         
         self.assertEquals("google.edu.ar", gurl.Url("http://www.google.edu.ar").domain)
         self.assertEquals("uba.ar", gurl.Url("http://www.google.uba.ar").domain)
+
+        self.assertEquals(None, gurl.Url("http://www.dd").domain)
+        self.assertEquals("www.dd", gurl.Url("http://www.dd").hostname)
 
 class TestUrlBuilder(unittest.TestCase):
     def testConstructor(self):

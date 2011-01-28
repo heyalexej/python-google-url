@@ -93,7 +93,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(SolutionDir)\*.py $(OutDir)&#x0D;&#x0A;copy $(SolutionDir)\*.dat $(OutDir)&#x0D;&#x0A;$(OutDir)\tests.py -v&#x0D;&#x0A;"
+				CommandLine="copy $(SolutionDir)\gurl\*.py $(OutDir)&#x0D;&#x0A;copy $(SolutionDir)\gurl\*.dat $(OutDir)&#x0D;&#x0A;copy $(SolutionDir)\gurl\*.dll $(OutDir)&#x0D;&#x0A;copy $(SolutionDir)\tests.py $(OutDir)&#x0D;&#x0A;cd $(OutDir)\&#x0D;&#x0A;tests.py -v&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -173,7 +173,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(SolutionDir)\*.py $(OutDir)&#x0D;&#x0A;copy $(SolutionDir)\*.dat $(OutDir)&#x0D;&#x0A;$(OutDir)\tests.py -v&#x0D;&#x0A;"
+				CommandLine="copy $(SolutionDir)\gurl\*.py $(OutDir)&#x0D;&#x0A;copy $(SolutionDir)\gurl\*.dat $(OutDir)&#x0D;&#x0A;copy $(SolutionDir)\gurl\*.dll $(OutDir)&#x0D;&#x0A;copy $(SolutionDir)\tests.py $(OutDir)&#x0D;&#x0A;cd $(OutDir)\&#x0D;&#x0A;tests.py -v&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
