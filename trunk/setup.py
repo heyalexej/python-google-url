@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+from __future__ import with_statement
+
 import ez_setup
 
 ez_setup.use_setuptools()
