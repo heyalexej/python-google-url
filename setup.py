@@ -14,7 +14,7 @@ from distutils.command.build import build as _build
 
 DEBUG = False
 
-PYGURL_HOME = os.path.dirname(__file__)
+PYGURL_HOME = os.path.abspath(os.path.dirname(__file__))
 BOOST_HOME = None
 BOOST_PYTHON_MT = False
 PYTHON_HOME = None
@@ -38,9 +38,9 @@ if GOOGLE_URL_HOME is None or not os.path.exists(os.path.join(GOOGLE_URL_HOME, '
     print "WARN: GOOGLE_URL_HOME doesn't exists or point to a wrong folder, ",
     print "      we will try to checkout and build a private build from <%s>." % GOOGLE_URL_SVN
 
-    GOOGLE_URL_HOME = os.path.join(GOOGLE_URL_HOME, 'build', 'googleurl')
+    GOOGLE_URL_HOME = os.path.join(PYGURL_HOME, 'build', 'googleurl')
 else:
-    print "Found Google v8 base on GOOGLE_URL_HOME <%s>, update it to latest SVN trunk" % GOOGLE_URL_SVN
+    print "Found Google url base on GOOGLE_URL_HOME <%s>, update it to latest SVN trunk" % GOOGLE_URL_SVN
 
 source_files = ["Url.cpp", "UrlBuilder.cpp", "gurl.cpp", "logging.cpp"]
 
@@ -119,13 +119,15 @@ class build(_build):
         os.chdir(cwd)
 
     def build_googleurl(self):
-        print "INFO: building Google url with SCons ..."
-
         if os.name == "nt":
+            print "INFO: building Google url with MSBuild ..."
+
             proc = subprocess.Popen(["msbuild", "googleurl.sln", "/p:Configuration=%s" % ('Debug' if DEBUG else 'Release')],
                                     cwd=os.path.join(GOOGLE_URL_HOME, 'build'),
                                     shell=True, stdout=sys.stdout, stderr=sys.stderr)
         else:
+            print "INFO: building Google url with SCons ..."
+
             proc = subprocess.Popen(["scons"],
                                     cwd=os.path.join(GOOGLE_URL_HOME, 'src'),
                                     shell=True, stdout=sys.stdout, stderr=sys.stderr)
