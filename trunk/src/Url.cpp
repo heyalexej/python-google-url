@@ -1,5 +1,6 @@
 #include "Url.h"
 
+#include <vector>
 #include <cassert>
 #include <fstream> 
 
